@@ -23,7 +23,7 @@
             background-image: 
                 linear-gradient(#f2ede4 1px, transparent 1px),
                 linear-gradient(90deg, #f2ede4 1px, transparent 1px);
-            background-size: 42px 42px;   /* much more subtle grid */
+            background-size: 48px 48px;   /* even subtler grid */
         }
         
         header {
@@ -39,17 +39,24 @@
         }
         
         nav {
-            margin-top: 20px;
-            font-size: 1.12rem;
+            margin-top: 22px;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
         }
         
         nav a {
-            margin: 0 20px;
+            margin: 0 14px;
             text-decoration: none;
             color: #222;
+            padding: 4px 10px;
         }
         
-        nav a:hover { text-decoration: underline; }
+        nav a:before  { content: "["; }
+        nav a:after   { content: "]"; }
+        
+        nav a:hover {
+            background: #e5e0d5;
+        }
         
         section { display: none; margin-bottom: 80px; }
         section:target { display: block; }
