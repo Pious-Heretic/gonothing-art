@@ -129,19 +129,25 @@
             position: fixed;
             inset: 0;
             z-index: 40;
-            background: rgba(20, 16, 12, 0.92);
+            background-color: rgba(20, 16, 12, 0.94);
+            background-image:
+                linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+            background-size: 52px 52px;
             cursor: zoom-out;
             overflow: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        #zoom.open { display: flex; align-items: center; justify-content: center; }
+        #zoom.open { display: block; }
         #zoom img {
-            max-width: 96vw;
-            max-height: 96vh;
-            width: auto;
-            height: auto;
             display: block;
-            margin: auto;
+            margin: 4vh auto;
+            width: 170vw;
+            max-width: none;
+            height: auto;
+            cursor: zoom-out;
         }
+        body.zoomed { overflow: hidden; }
         footer {
             text-align: center;
             margin-top: 100px;
@@ -151,9 +157,16 @@
             opacity: 0.6;
         }
         @media (max-width: 640px) {
-            body { padding: 28px 16px; }
-            h1 { font-size: 1.35rem; letter-spacing: 5px; }
-            nav { gap: 8px; font-size: 0.95rem; }
+            body { padding: 22px 12px 40px; }
+            h1 { font-size: 1.15rem; letter-spacing: 3px; }
+            nav { gap: 4px 6px; font-size: 0.82rem; }
+            nav a { padding: 8px 8px; }
+            .hero { margin: 36px 0 60px; font-size: 1.02rem; }
+            .fragment { font-size: 0.95rem; overflow-x: auto; }
+            h2 { font-size: 1.2rem; }
+            .piece { margin: 48px 0; }
+            .piece img { max-height: 78vh; }
+            #zoom img { width: 220vw; margin: 3vh auto; }
         }
     </style>
 </head>
@@ -438,11 +451,13 @@ back into itself
                 zoomImg.alt = img.alt;
                 zoom.classList.add('open');
                 zoom.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('zoomed');
             });
         });
         function closeZoom() {
             zoom.classList.remove('open');
             zoom.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('zoomed');
             zoomImg.src = '';
         }
         zoom.addEventListener('click', closeZoom);
