@@ -100,10 +100,14 @@
             margin: 70px 0;
         }
         .piece img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 82vh;
+            width: auto;
             height: auto;
             display: block;
+            margin: 0 auto;
             background: #ece6da;
+            cursor: zoom-in;
         }
         .piece .title {
             margin-top: 14px;
@@ -119,6 +123,24 @@
         s, del {
             text-decoration: line-through;
             opacity: 0.78;
+        }
+        #zoom {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            background: rgba(20, 16, 12, 0.92);
+            cursor: zoom-out;
+            overflow: auto;
+        }
+        #zoom.open { display: flex; align-items: center; justify-content: center; }
+        #zoom img {
+            max-width: 96vw;
+            max-height: 96vh;
+            width: auto;
+            height: auto;
+            display: block;
+            margin: auto;
         }
         footer {
             text-align: center;
@@ -401,8 +423,32 @@ back into itself
         </div>
         <a href="#" class="back-link">← [ Back to /root ]</a>
     </section>
+    <div id="zoom" aria-hidden="true">
+        <img alt="">
+    </div>
     <footer>
         Pious Heretic 2026 • All Rights Reserved
     </footer>
+    <script>
+        const zoom = document.getElementById('zoom');
+        const zoomImg = zoom.querySelector('img');
+        document.querySelectorAll('.piece img').forEach(function (img) {
+            img.addEventListener('click', function () {
+                zoomImg.src = img.src;
+                zoomImg.alt = img.alt;
+                zoom.classList.add('open');
+                zoom.setAttribute('aria-hidden', 'false');
+            });
+        });
+        function closeZoom() {
+            zoom.classList.remove('open');
+            zoom.setAttribute('aria-hidden', 'true');
+            zoomImg.src = '';
+        }
+        zoom.addEventListener('click', closeZoom);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeZoom();
+        });
+    </script>
 </body>
 </html>
